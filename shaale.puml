@@ -1,0 +1,75 @@
+@startuml
+set namespaceSeparator ::
+
+class "shaale::constants::strings.dart::AppStrings" {
+  {static} +String flutterWidgetTest
+  {static} +String flutter
+  {static} +String reactJs
+  {static} +String nodeJs
+  {static} +String django
+  {static} +String radioButtonGroup
+  {static} +String radioButton
+  {static} +String radioValue
+  {static} +String radioValueIs
+  {static} +String sliderButton
+  {static} +String sliderValue
+  {static} +String sliderValueIs
+  {static} +String slider
+  {static} +String switchStr
+  {static} +String switchButton
+  {static} +String switchValue
+  {static} +String switchValueIs
+  {static} +String ok
+}
+
+class "shaale::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::main.dart::MyApp"
+
+class "shaale::screens::home.dart::HomePage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::screens::home.dart::HomePage"
+
+class "shaale::widgets::android_or_ios_toggle.dart::AndroidOrIosToggle" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::android_or_ios_toggle.dart::AndroidOrIosToggle"
+
+class "shaale::widgets::radio_button.dart::RadioButton" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::radio_button.dart::RadioButton"
+
+class "shaale::widgets::radio_button_group.dart::RadioButtonGroup" {
+  +List<String> radioItems
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::radio_button_group.dart::RadioButtonGroup"
+
+class "shaale::widgets::slider_and_switch.dart::SliderAndSwitch" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::slider_and_switch.dart::SliderAndSwitch"
+
+class "shaale::widgets::slider_button.dart::SliderButton" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::slider_button.dart::SliderButton"
+
+class "shaale::widgets::switch_button.dart::SwitchButton" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::switch_button.dart::SwitchButton"
+
+
+@enduml
