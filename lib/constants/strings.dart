@@ -8,6 +8,8 @@ class AppStrings {
   static const String django = "Django";
   static const String radioButtonGroup = "Radio Button Group";
   static const String radioButton = "Radio Button";
+  static const String radioButtonLinux = "Radio Button Linux";
+  static const String radioButtonMac = "Radio Button mac";
   static const String radioValue = "Radio Value";
   static const String radioValueIs = "Radio value is: ";
   static const String sliderButton = "Slider Button";

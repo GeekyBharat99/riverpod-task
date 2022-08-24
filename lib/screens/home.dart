@@ -17,8 +17,8 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(AppStrings.flutterWidgetTest),
         actions: const [
-          // AndroidOrIosToggle contains a Switch widget, which is used to toggle between platform widgets (Android or IOS) .
-          AndroidOrIosToggle(),
+          // A drop down to choose platform, be default android.
+          PlatformDropDown(),
         ],
       ),
       body: ListView(

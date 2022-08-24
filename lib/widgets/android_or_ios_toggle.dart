@@ -2,23 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shaale/state_providers/state_providers.dart';
 
-class AndroidOrIosToggle extends StatelessWidget {
-  const AndroidOrIosToggle({
-    Key? key,
-  }) : super(key: key);
+class PlatformDropDown extends StatelessWidget {
+  const PlatformDropDown({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final bool isIos = ref
-            .watch(isIosProvider.state)
-            .state; // Get the isIos value form isIosProvider.
-        return Switch(
-          value: isIos,
-          activeColor: Colors.white,
-          onChanged: (value) => ref.read(isIosProvider.state).state =
-              value, // Change the state of isIosProvider.
+        final platform = ref.watch(platformProvider.state).state;
+        return DropdownButton<Platforms>(
+          underline: Container(),
+          iconEnabledColor: Colors.white,
+          dropdownColor: Colors.purple,
+          focusColor: Colors.white,
+          style: const TextStyle(
+            fontSize: 18,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+          value: platform,
+          onChanged: (value) => ref.read(platformProvider.state).state = value,
+          items: Platforms.values.map(
+            (Platforms platform) {
+              return DropdownMenuItem<Platforms>(
+                value: platform,
+                child: Text(
+                  platform.name,
+                ),
+              );
+            },
+          ).toList(),
         );
       },
     );

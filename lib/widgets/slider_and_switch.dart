@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shaale/helper/helper_widgets.dart';
 import 'package:shaale/state_providers/state_providers.dart';
 import 'package:shaale/constants/strings.dart';
+import 'package:shaale/widgets/sliders.dart';
+import 'package:shaale/widgets/switches.dart';
 
 class SliderAndSwitch extends StatelessWidget {
   const SliderAndSwitch({
@@ -26,33 +28,25 @@ class SliderAndSwitch extends StatelessWidget {
               ),
               Consumer(
                 builder: (context, ref, child) {
-                  final bool isIos = ref
-                      .watch(isIosProvider.state)
-                      .state; // Get the isIos value form isIosProvider.
-                  final double slider = ref
-                      .watch(sliderProvider.state)
-                      .state; // Get the slider value form sliderProvider.
+                  final platform = ref
+                      .watch(platformProvider.state)
+                      .state; // Get the platform value form platformProvider.
 
-                  if (isIos) {
-                    return CupertinoSlider(
-                      min: 0,
-                      max: 100,
-                      value: slider,
-                      onChanged: (value) {
-                        ref.read(sliderProvider.state).state =
-                            value; // Change the state of sliderProvider.
-                      },
-                    );
-                  } else {
-                    return Slider(
-                      min: 0,
-                      max: 100,
-                      value: slider,
-                      onChanged: (value) {
-                        ref.read(sliderProvider.state).state =
-                            value; // Change the state of sliderProvider.
-                      },
-                    );
+                  switch (platform) {
+                    case Platforms.android:
+                      return const AndroidSlider();
+
+                    case Platforms.ios:
+                      return const IosSlider();
+
+                    case Platforms.mac:
+                      return const IosSlider();
+
+                    case Platforms.linux:
+                      return const AndroidSlider();
+
+                    default:
+                      return Container();
                   }
                 },
               ),
@@ -72,29 +66,25 @@ class SliderAndSwitch extends StatelessWidget {
               ),
               Consumer(
                 builder: (context, ref, child) {
-                  final bool isIos = ref
-                      .watch(isIosProvider.state)
-                      .state; // Get the isIos value form isIosProvider.
-                  final bool switchValue = ref
-                      .watch(switchProvider.state)
-                      .state; // Get the switchValue value form switchProvider.
+                  final platform = ref
+                      .watch(platformProvider.state)
+                      .state; // Get the platform value form platformProvider.
 
-                  if (isIos) {
-                    return CupertinoSwitch(
-                      value: switchValue,
-                      onChanged: (value) => ref
-                          .read(switchProvider.state)
-                          .state = value, // Change the state of switchProvider.
-                      activeColor: Colors.purple,
-                    );
-                  } else {
-                    return Switch(
-                      value: switchValue,
-                      activeColor: Colors.purple,
-                      onChanged: (value) => ref
-                          .read(switchProvider.state)
-                          .state = value, // Change the state of switchProvider.
-                    );
+                  switch (platform) {
+                    case Platforms.android:
+                      return const AndroidSwitch();
+
+                    case Platforms.ios:
+                      return const IosSwitch();
+
+                    case Platforms.mac:
+                      return const IosSwitch();
+
+                    case Platforms.linux:
+                      return const AndroidSwitch();
+
+                    default:
+                      return Container();
                   }
                 },
               ),

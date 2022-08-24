@@ -30,6 +30,7 @@ class RadioButtonGroup extends StatelessWidget {
           final String selectedRadioItem = ref
               .watch(selectedRadioItemProvider.state)
               .state; //  Get the selectedRadioItem value form selectedRadioItemProvider.
+
           return ListView.builder(
             shrinkWrap: true,
             itemCount: radioItems.length,
