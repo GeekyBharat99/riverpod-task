@@ -1,6 +1,54 @@
 @startuml
 set namespaceSeparator ::
 
+class "shaale::base::android_widgets.dart::AndroidWidgets" {
+  +String className()
+  +SliderAndSwitchBase renderSliderAndSwitch()
+  +RadioButtonBase renderRadioButton()
+  +SliderButtonBase renderSliderButton()
+  +SwitchButtonBase renderSwitchButton()
+}
+
+"shaale::base::widget_type_base.dart::WidgetTypeBase" <|-- "shaale::base::android_widgets.dart::AndroidWidgets"
+
+class "shaale::base::ios_widgets.dart::IosWidgets" {
+  +String className()
+  +SliderAndSwitchBase renderSliderAndSwitch()
+  +RadioButtonBase renderRadioButton()
+  +SliderButtonBase renderSliderButton()
+  +SwitchButtonBase renderSwitchButton()
+}
+
+"shaale::base::widget_type_base.dart::WidgetTypeBase" <|-- "shaale::base::ios_widgets.dart::IosWidgets"
+
+abstract class "shaale::base::radio_button_base.dart::RadioButtonBase" {
+  +Widget render()
+  +String className()
+}
+
+abstract class "shaale::base::slider_and_switch_base.dart::SliderAndSwitchBase" {
+  +Widget render()
+  +String className()
+}
+
+abstract class "shaale::base::slider_button_base.dart::SliderButtonBase" {
+  +Widget render()
+  +String className()
+}
+
+abstract class "shaale::base::switch_button_base.dart::SwitchButtonBase" {
+  +Widget render()
+  +String className()
+}
+
+abstract class "shaale::base::widget_type_base.dart::WidgetTypeBase" {
+  +SliderAndSwitchBase renderSliderAndSwitch()
+  +SliderButtonBase renderSliderButton()
+  +SwitchButtonBase renderSwitchButton()
+  +RadioButtonBase renderRadioButton()
+  +String className()
+}
+
 class "shaale::constants::strings.dart::AppStrings" {
   {static} +String flutterWidgetTest
   {static} +String flutter
@@ -9,6 +57,8 @@ class "shaale::constants::strings.dart::AppStrings" {
   {static} +String django
   {static} +String radioButtonGroup
   {static} +String radioButton
+  {static} +String radioButtonLinux
+  {static} +String radioButtonMac
   {static} +String radioValue
   {static} +String radioValueIs
   {static} +String sliderButton
@@ -29,22 +79,121 @@ class "shaale::main.dart::MyApp" {
 "flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::main.dart::MyApp"
 
 class "shaale::screens::home.dart::HomePage" {
+  +List<WidgetTypeBase> types
   +Widget build()
 }
 
-"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::screens::home.dart::HomePage"
+"flutter_riverpod::src::consumer.dart::ConsumerWidget" <|-- "shaale::screens::home.dart::HomePage"
 
-class "shaale::widgets::android_or_ios_toggle.dart::AndroidOrIosToggle" {
+class "shaale::state_providers::state_providers.dart::Platforms" {
+  +int index
+  {static} +List<Platforms> values
+  {static} +Platforms android
+  {static} +Platforms ios
+  {static} +Platforms linux
+  {static} +Platforms mac
+}
+
+"shaale::state_providers::state_providers.dart::Platforms" o-- "shaale::state_providers::state_providers.dart::Platforms"
+"dart::core::Enum" <|-- "shaale::state_providers::state_providers.dart::Platforms"
+
+class "shaale::widgets::buttons.dart::OutlineSwitchButtonWidget" {
   +Widget build()
 }
 
-"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::android_or_ios_toggle.dart::AndroidOrIosToggle"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::buttons.dart::OutlineSwitchButtonWidget"
 
-class "shaale::widgets::radio_button.dart::RadioButton" {
+class "shaale::widgets::buttons.dart::CupertinoSwicthButtonWidget" {
   +Widget build()
 }
 
-"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::radio_button.dart::RadioButton"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::buttons.dart::CupertinoSwicthButtonWidget"
+
+class "shaale::widgets::buttons.dart::CupertinoSliderButton" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::buttons.dart::CupertinoSliderButton"
+
+class "shaale::widgets::buttons.dart::TextSliderButton" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::buttons.dart::TextSliderButton"
+
+class "shaale::widgets::buttons.dart::AndroidRadioButton" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::buttons.dart::AndroidRadioButton"
+
+class "shaale::widgets::buttons.dart::IosRadioButton" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::buttons.dart::IosRadioButton"
+
+class "shaale::widgets::new_radio_button.dart::NewRadioAndroidButton" {
+  +String className()
+  +Widget render()
+}
+
+"shaale::base::radio_button_base.dart::RadioButtonBase" <|-- "shaale::widgets::new_radio_button.dart::NewRadioAndroidButton"
+
+class "shaale::widgets::new_radio_ios_button.dart::NewRadioIosButton" {
+  +String className()
+  +Widget render()
+}
+
+"shaale::base::radio_button_base.dart::RadioButtonBase" <|-- "shaale::widgets::new_radio_ios_button.dart::NewRadioIosButton"
+
+class "shaale::widgets::new_slider_android.dart::NewSliderAndroidButton" {
+  +String className()
+  +Widget render()
+}
+
+"shaale::base::slider_button_base.dart::SliderButtonBase" <|-- "shaale::widgets::new_slider_android.dart::NewSliderAndroidButton"
+
+class "shaale::widgets::new_slider_and_switch.dart::NewSliderAndSwitchAndroid" {
+  +String className()
+  +Widget render()
+}
+
+"shaale::base::slider_and_switch_base.dart::SliderAndSwitchBase" <|-- "shaale::widgets::new_slider_and_switch.dart::NewSliderAndSwitchAndroid"
+
+class "shaale::widgets::new_slider_and_switch_ios.dart::NewSliderAndSwitchIos" {
+  +String className()
+  +Widget render()
+}
+
+"shaale::base::slider_and_switch_base.dart::SliderAndSwitchBase" <|-- "shaale::widgets::new_slider_and_switch_ios.dart::NewSliderAndSwitchIos"
+
+class "shaale::widgets::new_slider_ios_button.dart::NewSliderIosButton" {
+  +String className()
+  +Widget render()
+}
+
+"shaale::base::slider_button_base.dart::SliderButtonBase" <|-- "shaale::widgets::new_slider_ios_button.dart::NewSliderIosButton"
+
+class "shaale::widgets::new_switch_android.dart::NewSwitchAndroidButton" {
+  +String className()
+  +Widget render()
+}
+
+"shaale::base::switch_button_base.dart::SwitchButtonBase" <|-- "shaale::widgets::new_switch_android.dart::NewSwitchAndroidButton"
+
+class "shaale::widgets::new_switch_ios_button.dart::NewSwitchIosButton" {
+  +String className()
+  +Widget render()
+}
+
+"shaale::base::switch_button_base.dart::SwitchButtonBase" <|-- "shaale::widgets::new_switch_ios_button.dart::NewSwitchIosButton"
+
+class "shaale::widgets::platform_toggle.dart::PlatformDropDown" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::platform_toggle.dart::PlatformDropDown"
 
 class "shaale::widgets::radio_button_group.dart::RadioButtonGroup" {
   +List<String> radioItems
@@ -53,23 +202,41 @@ class "shaale::widgets::radio_button_group.dart::RadioButtonGroup" {
 
 "flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::radio_button_group.dart::RadioButtonGroup"
 
-class "shaale::widgets::slider_and_switch.dart::SliderAndSwitch" {
+class "shaale::widgets::sliders.dart::AndroidSlider" {
   +Widget build()
 }
 
-"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::slider_and_switch.dart::SliderAndSwitch"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::sliders.dart::AndroidSlider"
 
-class "shaale::widgets::slider_button.dart::SliderButton" {
+class "shaale::widgets::sliders.dart::IosSlider" {
   +Widget build()
 }
 
-"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::slider_button.dart::SliderButton"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::sliders.dart::IosSlider"
 
-class "shaale::widgets::switch_button.dart::SwitchButton" {
+class "shaale::widgets::slider_and_switch.dart::SliderAndSwitchAndroid" {
   +Widget build()
 }
 
-"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::switch_button.dart::SwitchButton"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::slider_and_switch.dart::SliderAndSwitchAndroid"
+
+class "shaale::widgets::slider_and_switch.dart::SliderAndSwitchIOS" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::slider_and_switch.dart::SliderAndSwitchIOS"
+
+class "shaale::widgets::switches.dart::AndroidSwitch" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::switches.dart::AndroidSwitch"
+
+class "shaale::widgets::switches.dart::IosSwitch" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shaale::widgets::switches.dart::IosSwitch"
 
 
 @enduml

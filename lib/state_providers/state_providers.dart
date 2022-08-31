@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 enum Platforms {
   android,
   ios,
-  mac,
   linux,
+  mac,
 }
 
 // StateProvider for Slider widget, by default 0.

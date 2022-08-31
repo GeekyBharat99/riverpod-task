@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shaale/base/android_widgets.dart';
+import 'package:shaale/base/ios_widgets.dart';
+import 'package:shaale/base/widget_type_base.dart';
 import 'package:shaale/helper/helper_widgets.dart';
 import 'package:shaale/constants/strings.dart';
-import 'package:shaale/widgets/android_or_ios_toggle.dart';
-import 'package:shaale/widgets/radio_button.dart';
+import 'package:shaale/state_providers/state_providers.dart';
+import 'package:shaale/widgets/platform_toggle.dart';
 import 'package:shaale/widgets/radio_button_group.dart';
-import 'package:shaale/widgets/slider_and_switch.dart';
-import 'package:shaale/widgets/slider_button.dart';
-import 'package:shaale/widgets/switch_button.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends ConsumerWidget {
+  HomePage({
+    Key? key,
+  }) : super(key: key);
+
+  final List<WidgetTypeBase> types = [
+    AndroidWidgets(),
+    IosWidgets(),
+    AndroidWidgets(),
+    IosWidgets(),
+  ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final platform = ref.watch(platformProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppStrings.flutterWidgetTest),
@@ -24,7 +35,9 @@ class HomePage extends StatelessWidget {
       body: ListView(
         children: [
           addVerticalSpace(36),
-          const SliderAndSwitch(),
+          types[Platforms.values.indexOf(platform)]
+              .renderSliderAndSwitch()
+              .render(context, ref),
           addVerticalSpace(36),
           Column(
             children: [
@@ -38,11 +51,17 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               addVerticalSpace(16),
-              const SliderButton(),
+              types[Platforms.values.indexOf(platform)]
+                  .renderSliderButton()
+                  .render(context, ref),
               addVerticalSpace(16),
-              const SwitchButton(),
+              types[Platforms.values.indexOf(platform)]
+                  .renderSwitchButton()
+                  .render(context, ref),
               addVerticalSpace(16),
-              const RadioButton(),
+              types[Platforms.values.indexOf(platform)]
+                  .renderRadioButton()
+                  .render(context, ref),
               addVerticalSpace(16),
             ],
           ),
